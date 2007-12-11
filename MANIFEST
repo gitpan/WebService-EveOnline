@@ -1,0 +1,19 @@
+Changes
+MANIFEST
+Makefile.PL
+README
+lib/WebService/EveOnline.pm
+lib/WebService/EveOnline/Cache.pm
+t/00-load.t
+t/10init.t
+t/20skills.t
+t/30char.t
+t/40map.t
+t/50journal.t
+t/60transactions.t
+t/70wallet.t
+t/80member.t
+t/90misc.t
+t/pod-coverage.t
+t/pod.t
+META.yml                                 Module meta-data (added by MakeMaker)
