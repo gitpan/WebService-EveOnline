@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use WebService::EveOnline;
+
+my $API_KEY = $ENV{EVE_API_KEY};
+my $USER_ID = $ENV{EVE_USER_ID};
+
+my $eve = WebService::EveOnline->new( { user_id => $USER_ID, api_key => $API_KEY } );
+
+foreach my $character ($eve->characters) {
+    my $num_skills = scalar($character->skills);
+
+    my $training = $character->skill_in_training->skill_name ? $character->skill_in_training->skill_name : "nothing";
+    print $character->character_name . " has " . $num_skills . " skills and is currently training $training.\n";
+}

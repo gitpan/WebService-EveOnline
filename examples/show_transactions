@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+use WebService::EveOnline;
+
+my $API_KEY = $ENV{EVE_API_KEY};
+my $USER_ID = $ENV{EVE_USER_ID};
+
+my $eve = WebService::EveOnline->new( { user_id => $USER_ID, api_key => $API_KEY } );
+
+foreach my $char ($eve->characters) {
+    my $n = 1;
+    print $char->character_name . "'s last three transactions or so:\n";
+    foreach my $t ($char->transactions) {
+        print "  " . $t->transaction_type_name . " was a bargain at " . $t->transaction_price . " ISK\n"; 
+        last if $n++ >= 3;
+    }
+    print "  Actually, " . $char->character_name . " has made no transactions\n" if $n == 1;
+    print "\n";
+}

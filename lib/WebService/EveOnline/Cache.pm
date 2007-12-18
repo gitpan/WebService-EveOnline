@@ -194,7 +194,7 @@ sub retrieve {
 	
 	my $data = undef;
 	my $tempdata = undef;
-	my $until = time - 1000; # pretend cache has already expired
+	my $until = time - 1; # pretend cache has already expired
 	my $now = time;
 	
 	my $cachekey = $details->{command} . ":" . $details->{params};
@@ -235,6 +235,12 @@ sub store {
 	my ($self, $details) = @_;
 	my $cachekey = $details->{command} . ":" . $details->{params};
 	my $cache_until = _evedate_to_epoch($details->{cache_until});
+
+    # The cache times we get back from Eve are usually set to 1 hour. Some things
+    # we want to cache for longer (like sex, race, etc.), and other things for
+    # shorter (account balance). So we can override it here:
+
+    $cache_until = time + $details->{max_cache} if $details->{max_cache};
 
 	if ($self->{_dbh}) {
 		# just to be safe, delete before insert

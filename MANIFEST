@@ -4,7 +4,16 @@ Makefile.PL
 README
 lib/WebService/EveOnline.pm
 lib/WebService/EveOnline/Cache.pm
-t/00-load.t
+lib/WebService/EveOnline/API/Character.pm
+lib/WebService/EveOnline/API/Journal.pm
+lib/WebService/EveOnline/API/Map.pm
+lib/WebService/EveOnline/API/Skills.pm
+lib/WebService/EveOnline/API/Transactions.pm
+lib/WebService/EveOnline/Base.pm
+examples/show_characters
+examples/show_transactions
+examples/skills_overview
+t/00load.t
 t/10init.t
 t/20skills.t
 t/30char.t

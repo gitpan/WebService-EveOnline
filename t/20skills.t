@@ -16,7 +16,7 @@ my $eve = WebService::EveOnline->new( { user_id => $USER_ID, api_key => $API_KEY
 my $eveskills = $eve->all_eve_skills;
 
 # do we get a recognised version?
-is( $eveskills->{version}, 1, 'EVE Version OK?' );
+is( $eveskills->{version}, 2, 'EVE Version OK?' );
 
 # do we get a cachedtime of the right format?
 like( $eveskills->{cachedUntil}, qr/\d+-\d+-\d+ \d+:\d+:\d+/, 'Cached time looks OK?');
