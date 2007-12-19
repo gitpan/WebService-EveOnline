@@ -41,6 +41,7 @@ sub new {
 	my $dbname = $params->{cache_dbname};
 	my $user = $params->{cache_user} || "";
 	my $pass = $params->{cache_pass} || "";
+    my $uid = $params->{eve_user_id} || "0";
 
 	my ($dbh, $sql);
 	
@@ -56,7 +57,7 @@ sub new {
 		}
 	}
 
-	return bless({ _dbh => $dbh, _sql => $sql, _type => $type, _dbname => $dbname, _memcache => {} }, $class);
+	return bless({ _dbh => $dbh, _sql => $sql, _type => $type, _dbname => $dbname, _uid => $uid, _memcache => {} }, $class);
 }
 
 =head2 cache_age
@@ -197,7 +198,7 @@ sub retrieve {
 	my $until = time - 1; # pretend cache has already expired
 	my $now = time;
 	
-	my $cachekey = $details->{command} . ":" . $details->{params};
+	my $cachekey =  $self->{_uid} . ":" . $details->{command} . ":" . $details->{params};
 
 	if ($self->{_dbh}) {
 		$self->{_sql}->{retrieve}->execute($cachekey);
@@ -233,7 +234,8 @@ is passed to it. The data is stored in Storable format.
 
 sub store {
 	my ($self, $details) = @_;
-	my $cachekey = $details->{command} . ":" . $details->{params};
+	my $cachekey = $self->{_uid} . ":" . $details->{command} . ":" . $details->{params};
+
 	my $cache_until = _evedate_to_epoch($details->{cache_until});
 
     # The cache times we get back from Eve are usually set to 1 hour. Some things

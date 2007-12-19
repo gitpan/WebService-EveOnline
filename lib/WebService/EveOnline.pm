@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 our $AGENT = 'WebService::EveOnline';
 our $EVE_API = "http://api.eve-online.com/";
 our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;
@@ -24,7 +24,7 @@ EXPERIMENTAL.
 
 =head1 VERSION
 
-0.03 - This is an incomplete implementation of the Eve Online API, but is a starting point.
+0.04 - This is an incomplete implementation of the Eve Online API, but is a starting point.
 
 =head1 SYNOPSIS
 
@@ -35,14 +35,21 @@ EXPERIMENTAL.
 		api_key => '<api_key>'
 	});
 	
-	my $character = $eve->character->name('<character_name>');
+	my $character = $eve->character('<character_name or ID>');
 	
-	print $character->training->{name} . " will finish training at " .
-	 $character->training->{training_end} . "\n";
+	print $character->character_name . " has " .
+	 $character->account_balance . " ISK in the pot\n";
+
+    foreach $char ($eve->characters) {
+        print $char->character_name . " has " . scalar($character->skills) .
+              " skills.";
+    }
+
+    See example scripts for more ways of using the interface.
 
 =head1 DESCRIPTION
 
-WebService::EveOnline (essentially) presents a nice programatic sugar over the
+L<WebService::EveOnline> (essentially) presents a nice programatic sugar over the
 top of the pretty cronky API that CCP games provide. The idea is that an 
 interested party (e.g. me) can keep track of what's going on with my characters
 in a similar manner to what EveMON does.
@@ -102,8 +109,39 @@ balance, so that's pretty much all I want/need it to do at the moment... :-)
 
 =cut
 
+=head2 SEE ALSO 
+
+Please look at the individual WebService::EveOnline::API::* modules for
+documentation on how to extract other data from the API.
+
+L<WebService::EveOnline::API::Character>
+L<WebService::EveOnline::API::Skills>
+L<WebService::EveOnline::API::Transactions>
+L<WebService::EveOnline::API::Journal>
+L<WebService::EveOnline::API::Map>
+
+=cut
+
+=head2 "ONE-LINERS"
+
+By setting the environment variables EVE_USER_ID and EVE_API_KEY, it is possible
+to write short(ish) 'one-liners' returning data from your account like this:
+
+ perl -MWebService::EveOnline \
+ -e'print WebService::EveOnline->new->character('name')->account_balance'
+ 
+ perl -MWebService::EveOnline \
+ -e'print map{$_->character_name."\n"}WebService::EveOnline->new->characters'
+
+=cut
+
 sub new {
 	my ($class, $params) = @_;
+
+    # this is surprisingly handy, as it allows for one-liners assuming
+    # the environment variables are appropriately set:
+    $params->{user_id} ||= $ENV{EVE_USER_ID};
+    $params->{api_key} ||= $ENV{EVE_API_KEY};
 
     unless (ref($params) eq "HASH" && $params->{user_id} && $params->{api_key}) {
 	    die("Cannot instantiate without a user_id/api_key!\nPlease visit $EVE_API if you still need to get one.");
@@ -120,6 +158,10 @@ If you don't happen to have my specific user_id and api_key, you milage may
 are probably dozens of edge cases I need to look at and resolve.
 
 Contributions/patches/suggestions are all gratefully received.
+
+A public subversion repository is available at:
+
+  http://theantipop.org/eve
 
 Please report any bugs or feature requests to C<bug-webservice-eveonline at rt.cpan.org>, or through
 the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WebService-EveOnline>.  I will be notified, and then you'll

@@ -50,7 +50,7 @@ sub new {
 	$params->{cache_init}   ||= "yes";
 	$params->{cache_maxage} ||= (86400 * 7); # time (s) between cache rebuilds. A week, for now.
 	
-	my $evecache = WebService::EveOnline::Cache->new( { cache_type => $params->{cache_type}, cache_dbname => $params->{cache_dbname} } ) if $params->{cache_init} eq "yes";
+	my $evecache = WebService::EveOnline::Cache->new( { eve_user_id => $params->{user_id}, cache_type => $params->{cache_type}, cache_dbname => $params->{cache_dbname} } ) if $params->{cache_init} eq "yes";
 	if ($evecache && $evecache->cache_age >= $params->{cache_maxage}) {
 		$evecache->repopulate('all_skills', call_api('all_skills'));
 	} else {
@@ -123,10 +123,12 @@ sub call_api {
 			my $xml = $res->content;
 			my $pre = $xs->XMLin($xml);
 			my $data = {};
+            my $in_error_state = undef;
 
             # print out any error content if it's set.
             if ($pre->{error}->{content}) {
-                warn $pre->{error}->{content};
+                $in_error_state = 1;
+                $data->{error} = "EVE API Error: " . $pre->{error}->{content} . " (" . $pre->{error}->{code} . ")";
             }
 
             # at the moment, we deal in hashrefs. one day, these will be objects (like everything else will be ;-P)
@@ -155,7 +157,7 @@ sub call_api {
 				return $data;
 			}
 
-			$data->{_status} = "ok";
+			$data->{_status} ||= "ok";
 			$data->{_xml} = $xml;
 			$data->{_parsed_as} = $pre;
 
@@ -169,8 +171,12 @@ sub call_api {
 				}
 			}
 
-			if (ref($self) && $data) {
+			if (ref($self) && $data && !$in_error_state) {
+                # error results are not cached
 				return $self->{_evecache}->store( { command => $command, obj => $self, data => $stripped_data || $data, params => $gen_params, cache_until => $pre->{cachedUntil}, max_cache => $API_MAP->{$command}->{max_cache}  } );
+            } elsif ($in_error_state) {
+                warn $data->{error} . "\n";
+                return undef; # better error handling is required...;
 			} else {
 				return $stripped_data || $data;
 			}
