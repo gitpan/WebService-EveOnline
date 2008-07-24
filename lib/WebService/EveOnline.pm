@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = '0.04';
+our $VERSION = '0.1.0';
 our $AGENT = 'WebService::EveOnline';
 our $EVE_API = "http://api.eve-online.com/";
 our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;
@@ -18,30 +18,36 @@ consistent interface to the MMORPG game, "Eve Online"
 (N.B. Export EVE_USER_ID and EVE_API_KEY to your environment before installing 
 to run all tests.) 
 
-Running under MS Windows will not work without tweaking. Support for non-unix architectures
-is intended to follow at a later date. Please consider this module's status as
-EXPERIMENTAL.
+Please have a look at the example scripts:
+
+  * examples/show_characters
+  * examples/show_corporation  
+  * examples/show_transactions
+  * examples/skills_overview
+
+They will get you started a lot quicker than the documentation (patches welcome!) ever will,
+which is mostly reference.
 
 =head1 VERSION
 
-0.04 - This is an incomplete implementation of the Eve Online API, but is a starting point.
+0.1.0 - This is an incomplete implementation of the Eve Online API, but is a starting point.
 
 =head1 SYNOPSIS
 
-	use WebService::EveOnline;
-	
-	my $eve = WebService::EveOnline->new({
-		user_id => <user_id>,
-		api_key => '<api_key>'
-	});
-	
-	my $character = $eve->character('<character_name or ID>');
-	
-	print $character->character_name . " has " .
-	 $character->account_balance . " ISK in the pot\n";
+    use WebService::EveOnline;
+    
+    my $eve = WebService::EveOnline->new({
+        user_id => <user_id>,
+        api_key => '<api_key>'
+    });
+    
+    my $character = $eve->character('<character_name or ID>');
+    
+    print $character->name . " has " .
+     $character->balance . " ISK in the pot\n";
 
     foreach $char ($eve->characters) {
-        print $char->character_name . " has " . scalar($character->skills) .
+        print $char->name . " has " . scalar($character->skills) .
               " skills.";
     }
 
@@ -103,9 +109,9 @@ all is debatable, but it does let me print out my favourite character's account
 balance, so that's pretty much all I want/need it to do at the moment... :-)
 
     my $eve = WebService::EveOnline->new({
-		user_id => <user_id>,
-		api_key => '<api_key>'
-	});
+        user_id => <user_id>,
+        api_key => '<api_key>'
+    });
 
 =cut
 
@@ -136,7 +142,7 @@ to write short(ish) 'one-liners' returning data from your account like this:
 =cut
 
 sub new {
-	my ($class, $params) = @_;
+    my ($class, $params) = @_;
 
     # this is surprisingly handy, as it allows for one-liners assuming
     # the environment variables are appropriately set:
@@ -144,10 +150,10 @@ sub new {
     $params->{api_key} ||= $ENV{EVE_API_KEY};
 
     unless (ref($params) eq "HASH" && $params->{user_id} && $params->{api_key}) {
-	    die("Cannot instantiate without a user_id/api_key!\nPlease visit $EVE_API if you still need to get one.");
+        die("Cannot instantiate without a user_id/api_key!\nPlease visit $EVE_API if you still need to get one.");
     }
 
-	return bless(WebService::EveOnline::Base->new($params), $class);
+    return bless(WebService::EveOnline::Base->new($params), $class);
 }
 
 
@@ -181,7 +187,7 @@ Chris Carline, C<< <chris at carline.org> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007 Chris Carline, all rights reserved.
+Copyright 2007-2008 Chris Carline, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

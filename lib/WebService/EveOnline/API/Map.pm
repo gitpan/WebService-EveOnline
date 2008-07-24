@@ -7,7 +7,7 @@ Stub for Journal API. Stop Pod coverage test complaining.
 =cut
 
 sub new {
-	my ($class, $params) = @_;
+    my ($class, $params) = @_;
     return bless({}, $class);
 }
 

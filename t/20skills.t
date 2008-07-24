@@ -13,7 +13,7 @@ my $USER_ID = $ENV{EVE_USER_ID} || 1000000;
 
 my $eve = WebService::EveOnline->new( { user_id => $USER_ID, api_key => $API_KEY } );
 
-my $eveskills = $eve->all_eve_skills;
+my $eveskills = $eve->skill->all_eve_skills;
 
 # do we get a recognised version?
 is( $eveskills->{version}, 2, 'EVE Version OK?' );

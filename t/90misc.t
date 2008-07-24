@@ -11,9 +11,7 @@ my $USER_ID = $ENV{EVE_USER_ID} || 1000000;
 
 my $can_misc = undef;
 
-ok( unlink('/tmp/webservice_eveonline.db') );
-
 SKIP: {
-	skip "Misc API currently unimplemented", 1 unless $can_misc;
-	ok( 1 );
+    skip "Misc API currently unimplemented", 1 unless $can_misc;
+    ok( 1 );
 };

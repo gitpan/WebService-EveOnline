@@ -12,6 +12,6 @@ my $USER_ID = $ENV{EVE_USER_ID} || 1000000;
 my $can_journal = undef;
 
 SKIP: {
-	skip "Journal API currently unimplemented", 1 unless $can_journal;
-	ok( 1 );
+    skip "Journal API currently unimplemented", 1 unless $can_journal;
+    ok( 1 );
 };

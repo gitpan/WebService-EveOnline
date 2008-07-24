@@ -12,6 +12,6 @@ my $USER_ID = $ENV{EVE_USER_ID} || 1000000;
 my $can_map = undef;
 
 SKIP: {
-	skip "Map API currently unimplemented", 1 unless $can_map;
-	ok( 1 );
+    skip "Map API currently unimplemented", 1 unless $can_map;
+    ok( 1 );
 };
