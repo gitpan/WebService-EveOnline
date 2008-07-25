@@ -1,5 +1,7 @@
 package WebService::EveOnline::API::Journal;
 
+our $VERSION = "0.5.3";
+
 =head2 new
 
 Stub for Journal API. Stop Pod coverage test complaining.

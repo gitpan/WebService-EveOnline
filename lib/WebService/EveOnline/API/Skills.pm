@@ -5,6 +5,8 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
+our $VERSION = "0.5.3";
+
 =head2 new
 
 This is called under the hood when an $eve->character->skill(s) object is requested.

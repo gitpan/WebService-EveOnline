@@ -2,6 +2,8 @@ package WebService::EveOnline::API::Character;
 
 use base qw/ WebService::EveOnline::Base /;
 
+our $VERSION = "0.5.3";
+
 =head4 new
 
 This is called under the hood when an $eve->character object is requested.

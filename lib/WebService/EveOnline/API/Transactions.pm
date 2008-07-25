@@ -1,5 +1,7 @@
 package WebService::EveOnline::API::Transactions;
 
+our $VERSION = "0.5.3";
+
 =head2 $character->transactions
 
 Recent transaction list (last 1000). Set offset before_trans_id to recall older transactions.

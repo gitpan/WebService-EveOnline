@@ -1,5 +1,7 @@
 package WebService::EveOnline::Base;
 
+our $VERSION = "0.5.3";
+
 use LWP::UserAgent;
 use HTTP::Request;
 use XML::Simple;

@@ -3,6 +3,8 @@ package WebService::EveOnline::Cache;
 use strict;
 use warnings;
 
+our $VERSION = "0.5.3";
+
 use DBI;
 use Storable qw/freeze thaw/;
 use Time::Local;
