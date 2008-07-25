@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = '0.5.1';
+our $VERSION = '0.5.2';
 our $AGENT = 'WebService::EveOnline';
 our $EVE_API = "http://api.eve-online.com/";
 our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;

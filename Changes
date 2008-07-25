@@ -1,6 +1,7 @@
 Revision history for WebService-EveOnline
 
-0.5.1  25 Jul 2008
+0.5.2  25 Jul 2008
+0.5.1  0.5.2 fixes a misnamed subroutine in Transaction list.
        Small fix that checks for any prior version of the eve
        cache database file used for testing, and recreates it 
        if necessary.

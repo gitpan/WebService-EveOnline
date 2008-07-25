@@ -201,7 +201,7 @@ The station id where the transaction took place (see also station_name).
 
 =cut
 
-sub station_name {
+sub station_id {
     my ($self) = @_;
     return $self->{_trans_station_id};
 }
