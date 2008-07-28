@@ -1,9 +1,11 @@
 --- #YAML:1.0
 name:                WebService-EveOnline
-version:             0.60
+version:             0.61
 abstract:            ~
 license:             ~
-generated_by:        ExtUtils::MakeMaker version 6.32
+author:              
+    - Chris Carline <chris@carline.org>
+generated_by:        ExtUtils::MakeMaker version 6.44
 distribution_type:   module
 requires:     
     DBD::SQLite:                   0
@@ -14,7 +16,5 @@ requires:
     Time::Local:                   0
     XML::Simple:                   0
 meta-spec:
-    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
-    version: 1.2
-author:
-    - Chris Carline <chris@carline.org>
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

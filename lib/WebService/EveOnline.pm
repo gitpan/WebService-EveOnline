@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = "0.60";
+our $VERSION = "0.61";
 our $AGENT = 'WebService::EveOnline';
 our $EVE_API = "http://api.eve-online.com/";
 our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;
@@ -30,7 +30,7 @@ which is mostly reference.
 
 =head1 VERSION
 
-0.60 - This is an incomplete implementation of the Eve Online API, but is a starting point.
+0.61 - This is an incomplete implementation of the Eve Online API, but is a starting point.
 
 =head1 SYNOPSIS
 
@@ -193,5 +193,16 @@ This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
 =cut
+
+sub _debug {
+    my ($class, $params) = @_;
+
+    $params ||= {};
+    $params->{_debug} = 1;
+    $WebService::EveOnline::DEBUG_MODE = 1;
+    warn "Switching on debugging statements:\n";
+    
+    return new($class, $params);
+}
 
 1;

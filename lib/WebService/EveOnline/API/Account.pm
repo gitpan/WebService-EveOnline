@@ -3,7 +3,7 @@ package WebService::EveOnline::API::Account;
 use strict;
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = "0.60";
+our $VERSION = "0.61";
 
 our $division = {
     1000 => 'first',

@@ -1,6 +1,6 @@
 package WebService::EveOnline::API::Map;
 
-our $VERSION = "0.60";
+our $VERSION = "0.61";
 
 =head2 new
 

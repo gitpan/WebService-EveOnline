@@ -1,12 +1,13 @@
 package WebService::EveOnline::API::Transactions;
 
-our $VERSION = "0.60";
+our $VERSION = "0.61";
 
 =head2 $character->transactions
 
 Recent transaction list (last 1000). Set offset before_trans_id to recall older transactions.
 
 =cut
+
 use base qw/ WebService::EveOnline::Base /;
 
 =head2 new
@@ -195,17 +196,6 @@ The station name where the transaction took place (see also station_id).
 sub station_name {
     my ($self) = @_;
     return $self->{_trans_station_name};
-}
-
-=head2 $transaction->station_id
-
-The station id where the transaction took place (see also station_name).
-
-=cut
-
-sub station_id {
-    my ($self) = @_;
-    return $self->{_trans_station_id};
 }
 
 =head2 $character->account_key

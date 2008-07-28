@@ -1,5 +1,8 @@
 Revision history for WebService-EveOnline
 
+0.61   28th July 2008
+       Removed spurious station_id from Transactions.pm
+
 0.60   28th July 2008
        Unfortunately due to a dodgy manifest and an error in
        versioning, I'm moving to a new version number.

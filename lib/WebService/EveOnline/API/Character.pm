@@ -2,7 +2,7 @@ package WebService::EveOnline::API::Character;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = "0.60";
+our $VERSION = "0.61";
 
 =head4 new
 
