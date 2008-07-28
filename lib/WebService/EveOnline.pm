@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = "0.5.3";
+our $VERSION = "0.60";
 our $AGENT = 'WebService::EveOnline';
 our $EVE_API = "http://api.eve-online.com/";
 our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;
@@ -30,7 +30,7 @@ which is mostly reference.
 
 =head1 VERSION
 
-0.5.3 - This is an incomplete implementation of the Eve Online API, but is a starting point.
+0.60 - This is an incomplete implementation of the Eve Online API, but is a starting point.
 
 =head1 SYNOPSIS
 

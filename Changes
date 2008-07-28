@@ -1,5 +1,10 @@
 Revision history for WebService-EveOnline
 
+0.60   28th July 2008
+       Unfortunately due to a dodgy manifest and an error in
+       versioning, I'm moving to a new version number.
+       Sorry for the inconvenience.
+
 0.5.3  25 Jul 2008
        Fixes the manifest and explicitly names the correct version
        in several places (thanks CPAN automated testing)

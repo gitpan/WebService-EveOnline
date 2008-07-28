@@ -1,6 +1,6 @@
 package WebService::EveOnline::API::Transactions;
 
-our $VERSION = "0.5.3";
+our $VERSION = "0.60";
 
 =head2 $character->transactions
 
