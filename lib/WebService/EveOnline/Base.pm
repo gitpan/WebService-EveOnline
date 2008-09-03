@@ -1,6 +1,6 @@
 package WebService::EveOnline::Base;
 
-our $VERSION = "0.61";
+our $VERSION = "0.62";
 
 use LWP::UserAgent;
 use HTTP::Request;
@@ -260,6 +260,8 @@ sub call_api {
             my $xs = XML::Simple->new();
             my $xml = $res->content;
 
+            warn "RAW XML is:\n$xml\n" if $ENV{EVE_DEBUG} =~ m/xml/i;
+
             my $pre = $xs->XMLin($xml);
             my $data = {};
             my $in_error_state = undef;
@@ -278,7 +280,7 @@ sub call_api {
                 if ($command eq "character") {
                     $data = $pre->{result}->{rowset}->{row};
                 } elsif ($command eq "skills") {
-                    $data->{skills} = $pre->{result}->{rowset}->{row} if $pre->{result}->{rowset}->{row};
+                    $data->{skills} = $pre->{result}->{rowset}->{skills}->{row} if $pre->{result}->{rowset}->{skills}->{row};
                 } elsif ($command eq "attributes") {
                     $data = $pre->{result}->{attributes};
                 } elsif ($command eq "enhancers") {
@@ -341,6 +343,7 @@ sub call_api {
                 return $stripped_data || $data;
             }
         } else {
+            warn "Error code received: " . $res->status_line . "\n" if $ENV{EVE_DEBUG};
             return { _status => "error", message => $res->status_line, _raw => undef };     
         }
     } else {

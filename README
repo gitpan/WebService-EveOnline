@@ -1,7 +1,7 @@
 WebService-EveOnline
 
 WebService::EveOnline -- a wrapper intended to (eventually) provide a 
-consistent interface to the MMORPG game, "Eve Online"
+useful interface to the MMORPG game, "Eve Online"
 
 (N.B. Export EVE_USER_ID and EVE_API_KEY to your environment before installing 
 to run all tests.) 

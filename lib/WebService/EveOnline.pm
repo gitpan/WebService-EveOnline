@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = "0.61";
+our $VERSION = "0.62";
 our $AGENT = 'WebService::EveOnline';
 our $EVE_API = "http://api.eve-online.com/";
 our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;
@@ -13,7 +13,7 @@ our $DEBUG_MODE = $ENV{EVE_DEBUG_ON} || undef;
 =head1 NAME
 
 WebService::EveOnline -- a wrapper intended to (eventually) provide a 
-consistent interface to the MMORPG game, "Eve Online"
+useful interface to the MMORPG game, "Eve Online"
 
 (N.B. Export EVE_USER_ID and EVE_API_KEY to your environment before installing 
 to run all tests.) 

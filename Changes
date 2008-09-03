@@ -1,5 +1,10 @@
 Revision history for WebService-EveOnline
 
+0.62   3rd September 2008
+       Fixed up skill-in-training following Empyrean Age 1.1 patch
+	   Added a finished_training method to skill object
+	   Updated tests/show_character example
+
 0.61   28th July 2008
        Removed spurious station_id from Transactions.pm
 

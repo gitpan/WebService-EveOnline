@@ -26,6 +26,10 @@ foreach my $character ($eve->characters) {
     }
     if ($character->skill->in_training) {
         my $skill = $character->skill->in_training;
-        print "     Training " . $skill->name . " (" . $skill->time_remaining . " remaining)\n";
+		if ($skill->finished_training) {
+			print "     Training of " . $skill->name . " has finished\n";
+		} else {
+        	print "     Training " . $skill->name . " (" . $skill->time_remaining . " remaining)\n";
+		}
     }
 }

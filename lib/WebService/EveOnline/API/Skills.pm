@@ -5,7 +5,7 @@ use warnings;
 
 use base qw/ WebService::EveOnline::Base /;
 
-our $VERSION = "0.61";
+our $VERSION = "0.62";
 
 =head2 new
 
@@ -76,7 +76,7 @@ sub in_training {
     
     my $trainref = { _skill_id => undef, _skill_name => undef, _skill_description => undef, _skill_in_training => undef,
                      _skill_in_training_level => undef, _skill_in_training_start_time => undef, _skill_in_training_finish_time => undef,
-                     _skill_in_training_start_sp => undef, _skill_in_training_finish_sp => undef,
+                     _skill_in_training_start_sp => undef, _skill_in_training_finish_sp => undef, 
     };
 
     foreach my $tdetail (keys %{$raw_training}) {
@@ -115,6 +115,20 @@ If a skill is in training, returns the number of seconds left to go before it it
 sub seconds_remaining {
     my ($self) = @_;
     return ($self->in_training) ? ($self->finish_time - time) : undef;
+}
+
+=head2 $character->in_training->finished_training, $skill_in_training->finished_training
+
+If a skill was in training, but has now finished, this will return true.
+
+The EVE API has been a bit inconsistant with how it deals with skills that have finished/
+are no longer in training, so use with caution.
+
+=cut
+
+sub finished_training {
+    my ($self) = @_;
+    return ($self->seconds_remaining <= 0) ? 1 : undef;
 }
 
 =head2 $character->in_training->time_remaining, $skill_in_training->time_remaining

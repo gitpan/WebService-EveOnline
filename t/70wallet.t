@@ -17,6 +17,8 @@ SKIP: {
     my $eve = WebService::EveOnline->new( { user_id => $USER_ID, api_key => $API_KEY } );
     my @c = $eve->characters;
 
+    skip "Bad details or server response", 8 unless $c[0]->id;
+
     is( ref($c[0]), 'WebService::EveOnline::API::Character', 'Returns a WebService::EveOnline::API::Character object?' );
     like( $c[0]->id, qr/\d+/, 'Looks like a character id?' );
     
